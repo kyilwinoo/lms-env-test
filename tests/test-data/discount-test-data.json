@@ -1,0 +1,43 @@
+[
+    {
+        "discount_type": "Percentage",
+        "test_description": "WithMinimumPurchase",
+        "voucher_provider_name": "",
+        "discount_name": "LMS PW Discount Testing",
+        "voucher_title": "LMS PW Testing",
+        "description": "description",
+        "terms_and_conditions": "terms & conditions",
+        "country": "SG",
+        "currencySign": "S$",
+        "discount_amount": "10",
+        "maxiDiscountUses": {
+            "isLimitAvailableQty": false
+        },
+        "VoucherExpiration": {
+            "expiryType": "No",
+            "discountExpiryOn": "2025-03-03"
+        },
+        "minimumPurchase": true,
+        "minimum_purchase_amount": "1000"
+    },
+    {
+        "discount_type": "FixedAmt",
+        "test_description": "NoMinimumPurchase",
+        "voucher_provider_name": "My TESTING",
+        "discount_name": "My Fixed Discount",
+        "voucher_title": "Repair",
+        "description": "desc",
+        "terms_and_conditions": "T&C",
+        "country": "SG",
+        "currencySign": "S$",
+        "discount_amount": "30",
+        "maxiDiscountUses": {
+            "isLimitAvailableQty": true
+        },
+        "VoucherExpiration": {
+            "expiryType": "fromIssueDate",
+            "discountExpiryOn": "2025-06-15"
+        },
+        "minimumPurchase": false
+    }
+]
