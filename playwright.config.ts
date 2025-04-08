@@ -1,38 +1,12 @@
 import { defineConfig, devices } from '@playwright/test';
 import 'dotenv/config'
-/*
-const envConfig = {
-  STG: {
-    baseUrl: 'https://stg.example.com',
-    user: 'stgUser',
-    password: 'stgPassword'
-  },
-  UAT: {
-    baseUrl: 'https://uat.example.com',
-    user: 'uatUser',
-    password: 'uatPassword'
-  },
-  QA: {
-    baseUrl: 'https://qa.example.com',
-    user: 'qaUser',
-    password: 'qaPassword'
-  }
-};
-*/
+import path from 'path'
+
 // Define the environment from command line argument or default to QA
 const environment = process.env.ENVIRONMENT || 'STG'; // Default is STG if not specified
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+export const STORAGE_STATE = path.join(__dirname, 'playwright/.auth/user.json')
 
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -57,25 +31,27 @@ export default defineConfig({
 
   /* Configure projects for major browsers */
   projects: [
+    { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
       name: 'chromium',
       use: {
         browserName: 'chromium',
-        viewport: { width: 1920, height: 970 }, // Set viewport size
+        viewport: null,
+        storageState: STORAGE_STATE,
         launchOptions: {
           headless: false, // Run with a visible browser window
         },
-      }
+      }, dependencies: ['setup'],
     },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'], viewport: { width: 1490, height: 956 } },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'], viewport: { width: 1490, height: 956 } },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'], viewport: { width: 1920, height: 2000 } },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'], viewport: { width: 1920, height: 2000 } },
+    // },
 
     /* Test against mobile viewports. */
     // {
