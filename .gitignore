@@ -8,7 +8,7 @@ node_modules/
 .vscode/
 .DS_Store
 .env
-
+/lms/playground.spec.ts
 /downloads
 
 

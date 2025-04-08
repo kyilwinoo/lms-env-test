@@ -3,6 +3,7 @@ import { login } from '../page-objects/login'; // Import the login function
 import { loadCustomerIDs } from '../discounts/disocunt-helper';
 import { createDiscounts } from '../page-objects/discount-page';
 import { VoucherActions } from '../page-objects/voucher-page';
+
 let discountCreation: createDiscounts;
 let voucherActions: VoucherActions;
 
