@@ -2,13 +2,13 @@ import { expect, type Locator, type Page } from "@playwright/test";
 
 export class discountLocators {
     readonly page: Page
-    readonly countryInfo: Locator
-    readonly modalInner: Locator
-    readonly modalDialog: Locator
-    readonly pageTitle: RegExp
-    readonly confrimText: string
-    readonly successAssignText: string
-    readonly currentDateFmrt: string
+    readonly countryInfo: Locator | undefined
+    readonly modalInner: Locator | undefined
+    readonly modalDialog: Locator | undefined
+    readonly pageTitle: RegExp | undefined
+    readonly confrimText: string | undefined
+    readonly successAssignText: string | undefined
+    readonly currentDateFmrt: string | undefined
     readonly btnCreateNewDiscount: Locator
     readonly btnSaveAsDraft: Locator
     readonly btnCreateDisocunt: Locator
@@ -19,17 +19,17 @@ export class discountLocators {
     readonly txtVoucherProviderName: Locator
     readonly txtDisocuntName: Locator
     readonly txtVoucherTitle: Locator
-    readonly txtCategory: Locator
+    readonly txtCategory: Locator | undefined
     readonly txtDescription: Locator
     readonly txtTermsAndConditions: Locator
     readonly txtDiscountType: Locator
-    readonly txtDiscountAmount: Locator
-    readonly txtDiscountID: Locator
-    readonly txtDiscountStatus: Locator
+    readonly txtDiscountAmount: Locator | undefined
+    readonly txtDiscountID!: Locator;
+    readonly txtDiscountStatus: Locator | undefined
     readonly txtAvailableQty: Locator
 
     // Define constants for static text
-    static readonly SELECT_BUSINESS_GROUP_TEXT = 'Carro Care (SG)';
+    static readonly SELECT_BUSINESS_GROUP_TEXT = 'Carro Care [SG]';
     static readonly SEARCH_BY = 'Discount ID';
 
 
@@ -51,12 +51,16 @@ export class discountLocators {
         this.txtSearch = page.locator('[id="search_query"]')
         this.btnSearch = page.locator('//html/body/div/main/div/div[3]/div/div[1]/div/form/div[2]/div/div/div/div/span/span/span[2]/button');
     }
-    async assertPageTitle() {
-        await expect(this.page).toHaveTitle(this.pageTitle)
-    }
+    // async assertPageTitle() {
+    //     await expect(this.page).toHaveTitle(this.pageTitle)
+    // }
     async clickCreateNewDiscount() {
         await this.btnCreateNewDiscount.waitFor();
         await this.btnCreateNewDiscount.click();
+    }
+    async clickEditDiscount() {
+        await this.page.getByRole('button', { name: 'Edit' }).waitFor();
+        await this.page.getByRole('button', { name: 'Edit' }).click();
     }
     async selectBizGroup() {
         await this.txtBusinessGroup.waitFor();
@@ -64,6 +68,8 @@ export class discountLocators {
         await this.page.getByTitle(`${discountLocators.SELECT_BUSINESS_GROUP_TEXT}`).waitFor();
         await this.page.getByTitle(`${discountLocators.SELECT_BUSINESS_GROUP_TEXT}`).click();
     }
+
+
     async clickSaveAsDraft() {
         await expect(this.btnSaveAsDraft).toBeEnabled()
         this.btnSaveAsDraft.click();
@@ -73,7 +79,11 @@ export class discountLocators {
         this.btnCreateDisocunt.click();
     }
     async getCountryInfo(): Promise<string | null> {
-        this.countryInfo.waitFor();
+        if (this.countryInfo) {
+            await this.countryInfo.waitFor();
+        } else {
+            throw new Error("countryInfo is undefined");
+        }
         return await this.page.locator('span').filter({ hasText: 'Singapore' }).innerText()
     }
     async switchCountry(to: string): Promise<void> {
@@ -81,7 +91,11 @@ export class discountLocators {
         console.log("selected country: " + getCurrentCountryInfo)
         console.log("Current Contry Info: ", getCurrentCountryInfo)
         if (!getCurrentCountryInfo?.includes(to)) {
-            await this.countryInfo.waitFor()
+            if (this.countryInfo) {
+                await this.countryInfo.waitFor();
+            } else {
+                throw new Error("countryInfo is undefined");
+            }
             await this.countryInfo.click()
             await this.page.getByTestId('country-switch-' + to).click()
             await this.page.waitForLoadState('networkidle')

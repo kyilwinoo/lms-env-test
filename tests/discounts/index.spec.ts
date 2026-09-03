@@ -1,21 +1,19 @@
 import { test } from '@playwright/test';
-import { getDiscountDescription } from '../test-data/discount-criteria';
-import { createDiscounts } from '../page-objects/discount-page'; 
+import { discountCriteriaMap } from '../test-data/discount-criteria';
+import { Discounts } from '../page-objects/discount-page';
 import { VoucherActions } from '../page-objects/voucher-page';
 import { config } from '@/config'
-let discountCreation: createDiscounts;
+let discountCreation: Discounts;
 let voucherActions: VoucherActions;
-const inputDescription = "NoMinimumPurchase";
-const ipsFormData = getDiscountDescription(inputDescription);
-if (!ipsFormData) {
-    throw new Error("Form data not found for the given description");
-}
+
+const ipsFormData = discountCriteriaMap['NoMinimumPurchase']
+
 test('playground', async ({ page }) => {
-    console.log('page', `${config.domains.lms.baseUrl}`);
-    await page.goto(`${config.domains.lms.baseUrl}/discount/new`)
-       discountCreation = new createDiscounts(page, "CREATE");
-        voucherActions = new VoucherActions(page);
-        await discountCreation.setFormData(ipsFormData);
-        await discountCreation.createNewDiscount();
+    // const discountID = '00222'; //00220 Draft, 00233
+    await page.goto(`${config.domains.lms.baseUrl}`)
+    await page.waitForTimeout(5000);
+    const discountCreation = new Discounts(page,'Draft', ipsFormData);
+    const voucherActions = new VoucherActions(page);
+    await discountCreation.createNewDiscount();
 })
 

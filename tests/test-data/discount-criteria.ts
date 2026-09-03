@@ -1,10 +1,9 @@
-import { Utility } from '../components/Locators/utility';
+import { Utility } from '../utils/utility';
 const util = new Utility()
 
 // Data-driven test scenarios
 export interface DiscountFormData {
     discount_type: string; // e.g. FixedAmt | Percentage
-    test_description: string;
     voucher_provider_name: string;
     discount_name: string;
     voucher_title: string;
@@ -47,11 +46,12 @@ const inputText = {
 inputText.expiryDate = util.getNextDay
 console.log("expireDay : " + inputText.expiryDate)
 
-const textVoucherTitle = " ";
-export const discountCriteria: DiscountFormData[] = [
-    {
+const textVoucherTitle = "10% ";
+
+type TName = 'WithMinimumPurchase' | 'NoMinimumPurchase';
+export const discountCriteriaMap: Record<TName, DiscountFormData> = {
+    WithMinimumPurchase: {
         discount_type: inputText.discountType, // FixedAmt | Percentage
-        test_description: 'WithMinimumPurchase',
         voucher_provider_name: inputText.voucherProvider,
         // discount_name: inputText.discountName + " Expiry on " + inputText.expireOn + inputText.limitAvailableQty,
         discount_name: inputText.discountName + inputText.category + " Discount",
@@ -79,9 +79,8 @@ export const discountCriteria: DiscountFormData[] = [
             capVisible: false
         },
     },
-    {
+    NoMinimumPurchase: {
         discount_type: inputText.discountType, // FixedAmt | Percentage
-        test_description: 'NoMinimumPurchase',
         voucher_provider_name: inputText.voucherProvider,
         discount_name: inputText.discountName,
         voucher_title: textVoucherTitle + inputText.category,
@@ -109,14 +108,4 @@ export const discountCriteria: DiscountFormData[] = [
             capVisible: false
         },
     }
-];
-
-export function getDiscountDescription(description: string) {
-    const formData = discountCriteria.find(
-        (item) => item.test_description === description
-    );
-    if (!formData) {
-        throw new Error(`No matching scenarios found for: "${description}"`);
-    }
-    return formData;
 }

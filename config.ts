@@ -42,26 +42,6 @@ export const config = {
     captain: {
       baseUrl: process.env.CAPTAIN_BASE_URL || '',
     },
-    eternal: {
-      baseUrl: process.env.ETERNAL_BASE_URL || '',
-    },
-    recond: {
-      baseUrl: process.env.RECOND_BASE_URL,
-      apiUrl: process.env.RECOND_API_URL,
-      features: {
-        sellCar: true,
-        listingManagement: true,
-        privateSeller: true,
-      },
-    },
-    inventory: {
-      baseUrl: process.env.INVENTORY_BASE_URL,
-      apiUrl: process.env.INVENTORY_API_URL,
-      features: {
-        dealerOperations: true,
-        stockControl: true,
-      },
-    },
   },
   auth: {
     captain: {
@@ -83,9 +63,7 @@ export const config = {
       gender: process.env.DEFAULT_BUYER_GENDER || '',
       race: process.env.DEFAULT_BUYER_RACE || '',
     },
-    seller: {
-      phone: process.env.DEFAULT_SELLER_PHONE || '',
-    },
+
     car: {
       searchQuery: process.env.DEFAULT_CAR_SEARCH_QUERY || 'Toyota',
       make: process.env.DEFAULT_CAR_MAKE || 'Toyota',

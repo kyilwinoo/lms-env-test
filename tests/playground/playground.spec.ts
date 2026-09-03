@@ -3,10 +3,10 @@ import { config } from '~/config'
 import { STORAGE_STATE } from '@/playwright.config'
 import { LoginPage } from '@pages/sso/login-page'
 import fs from 'fs'
-import { createDiscounts } from '../page-objects/discount-page';
+import { Discounts } from '../page-objects/discount-page';
 import { VoucherActions } from '../page-objects/voucher-page';
 
-let discountCreation: createDiscounts;
+let discountCreation: Discounts;
 let voucherActions: VoucherActions;
 
 setup('SSO authentication', async ({ page }) => {
@@ -17,6 +17,6 @@ setup('SSO authentication', async ({ page }) => {
     await ssoLoginPage.gotoSSOLoginPage()
     await ssoLoginPage.login(config.credentials.auth.sso.username, config.credentials.auth.sso.password)
     await ssoLoginPage.page.context().storageState({ path: STORAGE_STATE })
-    discountCreation = new createDiscounts(page, "CREATE");
+    discountCreation = new Discounts(page, "CREATE");
     await discountCreation.clickDiscountById("00222");
 })

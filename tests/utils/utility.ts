@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { Page, expect } from '@playwright/test';
 
 export class Utility {
     get getDay(): string {
@@ -14,7 +15,8 @@ export class Utility {
         return moment().format('YYYY');
     }
     get getNextDay(): string {
-        return moment().add(1, 'day').format('MM-DD');
+        // return moment().add(1, 'day').format('MM-DD');
+        return moment().add(1, 'day').format('DD');
     };
     getCurrentDateFormatted(format: string = 'DD MMMM YYYY'): string {
         return moment().format(format);

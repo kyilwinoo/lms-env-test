@@ -2,9 +2,6 @@ import { defineConfig, devices } from '@playwright/test';
 import 'dotenv/config'
 import path from 'path'
 
-// Define the environment from command line argument or default to QA
-const environment = process.env.ENVIRONMENT || 'STG'; // Default is STG if not specified
-
 export const STORAGE_STATE = path.join(__dirname, 'playwright/.auth/user.json')
 
 export default defineConfig({
@@ -36,6 +33,17 @@ export default defineConfig({
       name: 'chromium',
       use: {
         browserName: 'chromium',
+        viewport: null,
+        storageState: STORAGE_STATE,
+        launchOptions: {
+          headless: false, // Run with a visible browser window
+        },
+      }, dependencies: ['setup'],
+    },
+    {
+      name: 'firefox',
+      use: {
+        browserName: 'firefox',
         viewport: null,
         storageState: STORAGE_STATE,
         launchOptions: {

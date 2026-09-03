@@ -3,8 +3,8 @@
         "discount_type": "Percentage",
         "test_description": "WithMinimumPurchase",
         "voucher_provider_name": "",
-        "discount_name": "LMS PW Discount Testing",
-        "voucher_title": "LMS PW Testing",
+        "discount_name": "LMS PW NK RECIPE Discount",
+        "voucher_title": "SPRAY 10 OFF",
         "description": "description",
         "terms_and_conditions": "terms & conditions",
         "country": "SG",
@@ -23,7 +23,7 @@
     {
         "discount_type": "FixedAmt",
         "test_description": "NoMinimumPurchase",
-        "voucher_provider_name": "My TESTING",
+        "voucher_provider_name": "SG TESTING",
         "discount_name": "My Fixed Discount",
         "voucher_title": "Repair",
         "description": "desc",
@@ -36,7 +36,7 @@
         },
         "VoucherExpiration": {
             "expiryType": "fromIssueDate",
-            "discountExpiryOn": "2025-06-15"
+            "discountExpiryOn": "2027-12-31"
         },
         "minimumPurchase": false
     }

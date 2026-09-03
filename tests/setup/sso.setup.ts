@@ -11,5 +11,6 @@ setup('SSO authentication', async ({ page }) => {
   const ssoLoginPage = new LoginPage(page)
   await ssoLoginPage.gotoSSOLoginPage()
   await ssoLoginPage.login(config.credentials.auth.sso.username, config.credentials.auth.sso.password)
+  await ssoLoginPage.applicationLogin(config.domains.lms.baseUrl)
   await ssoLoginPage.page.context().storageState({ path: STORAGE_STATE })
 })

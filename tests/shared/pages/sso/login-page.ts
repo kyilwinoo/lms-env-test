@@ -15,17 +15,16 @@ export class LoginPage {
     await this.page.getByRole('textbox', { name: 'Password' }).click()
     await this.page.getByRole('textbox', { name: 'Password' }).fill(password)
 
-    await this.page.getByRole('button', { name: 'Log in' }).click()
+    await this.page.getByRole('button', { name: 'Log in' }).first().click()
 
-    await this.page.waitForURL(`${config.domains.auth.sso.baseUrl}/applications`)
+    await this.page.waitForURL(`${config.domains.auth.sso.baseUrl}/profile`)
 
   }
-
-
   async applicationLogin(applicationUrl: string) {
     await this.page.goto(applicationUrl)
     await this.page.getByRole('button', { name: 'Login with' }).click()
     await this.page.getByRole('main').nth(1).click()
-    await this.page.waitForURL(applicationUrl)
+    console.log('Login with SSO: ', applicationUrl)
+    await this.page.waitForURL(applicationUrl+'/discount')
   }
 }

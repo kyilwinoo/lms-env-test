@@ -1,7 +1,7 @@
 import { test, Page, expect } from '@playwright/test';
 import { login } from '../page-objects/login'; // Import the login function
 import { promises as fs } from 'fs'
-import { Utility } from '../components/Locators/utility'; // Import the login function
+import { Utility } from '../utils/utility'; // Import the login function
 
 
 const inpVoucherData = {
